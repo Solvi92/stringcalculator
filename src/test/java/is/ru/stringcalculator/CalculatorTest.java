@@ -7,7 +7,7 @@ import org.junit.Rule;
 
 public class CalculatorTest {
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws Calculator.NegativeException {
       org.junit.runner.JUnitCore.main("is.ru.stringcalculator.CalculatorTest");
     }
 
@@ -42,9 +42,8 @@ public class CalculatorTest {
 	public ExpectedException exception = ExpectedException.none();
 	@Test
 	public void testNegative() throws Calculator.NegativeException{
-		exception.expect(Calculator.NegativeExeption.class);
-		exception.expectMessage("Negatives not allowed: -2, -4");
+		exception.expect(Calculator.NegativeException.class);
+		exception.expectMessage("Negatives not allowed: -2,-4");
 		Calculator.add("1, -2,3,-4");
-	}
-	
+	}	
 }

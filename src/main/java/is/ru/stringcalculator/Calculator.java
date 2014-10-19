@@ -32,7 +32,7 @@ public class Calculator {
 	    return numbers.split(",|\n");
 	}
 	
-	private static class NegativeException extends Exception {
+	public static class NegativeException extends Exception {
 		public NegativeException(){super();}
 		public NegativeException(String message){
 			super(message);
@@ -41,18 +41,23 @@ public class Calculator {
       
     	private static int sum(String[] numbers) throws Calculator.NegativeException{
  	    	int total = 0;
-		String negatives = "";
+		StringBuffer negatives = new StringBuffer();;
+		boolean contains = false;
         	for(String number : numbers){
 		    if(number.contains("-")){
-		    	negatives = numbers + ", ";
+			contains = true;
+		    	negatives.append(number + ",");
 		    }
 		    else{
 		    	total += toInt(number);
 		    }
 		}
-		if(!negatives.isEmpty()){
-		    throw new NegativeException("Negatives not allowed: " + negatives.substring(0, negatives.length() - 2));
+		if(contains) {
+		    String newNegatives = negatives.toString();
+		    throw new NegativeException("Negatives not allowed:" + newNegatives.substring(0, newNegatives.length() - 1));
 		}
-		return total;
+		else{
+		    return total;
+		}
     	}
 }
